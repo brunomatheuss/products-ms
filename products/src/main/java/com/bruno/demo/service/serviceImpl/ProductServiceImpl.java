@@ -28,13 +28,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductDTO.Response.Search> search(String q, Double min_price, Double max_price) throws CustomException{
-		return productRepository.search(q, min_price, max_price);
-	}
-	
-	@Override
 	public List<Product> findAll(){
 		return productRepository.findAll();
+	}
+
+	@Override
+	public List<ProductDTO.Response.Search> search(String q, Double min_price, Double max_price) throws CustomException{
+		return productRepository.search(q, min_price, max_price);
 	}
 	
 	@Override

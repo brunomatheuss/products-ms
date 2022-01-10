@@ -1,4 +1,4 @@
-package com.bruno.demo.result;
+package com.bruno.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

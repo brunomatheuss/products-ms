@@ -6,7 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.bruno.demo.result.Result;
+import com.bruno.demo.entity.Result;
 
 @RestControllerAdvice
 public class ApiExceptionHandler{

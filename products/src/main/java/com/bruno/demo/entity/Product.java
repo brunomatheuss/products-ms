@@ -43,7 +43,7 @@ public class Product {
 		this.price = price;
 	}
 	
-	public Product(String id, @NotNull String name, @NotNull String description, @Positive Double price) {
+	public Product(String id, String name, String description, Double price) {
 		this(name, description, price);
 		this.id = id;
 	}
