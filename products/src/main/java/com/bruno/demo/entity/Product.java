@@ -35,15 +35,15 @@ public class Product {
 	
 	@Column(name = "price")
 	@Positive
-	private double price;
+	private Double price;
 	
-	public Product(String name, String description, double price) {
+	public Product(String name, String description, Double price) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
 	}
 	
-	public Product(String id, @NotNull String name, @NotNull String description, @Positive double price) {
+	public Product(String id, @NotNull String name, @NotNull String description, @Positive Double price) {
 		this(name, description, price);
 		this.id = id;
 	}

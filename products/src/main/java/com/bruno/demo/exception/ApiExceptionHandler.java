@@ -16,5 +16,11 @@ public class ApiExceptionHandler{
 		String msg = new StringBuilder(manve.getBindingResult().getFieldError().getField()).append(": invalid value!").toString();
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Result(HttpStatus.BAD_REQUEST.value(), msg));
 	}
+	
+	@ExceptionHandler(CustomException.class)
+	protected ResponseEntity<Result> handleService(CustomException ce) {
+		return ResponseEntity.status(ce.getHttpStatus()).body(new Result(ce.getHttpStatus().value(), ce.getMessage()));
+	}
+
 
 }

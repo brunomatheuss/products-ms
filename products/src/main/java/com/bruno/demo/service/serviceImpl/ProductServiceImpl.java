@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.bruno.demo.dto.ProductDTO;
 import com.bruno.demo.entity.Product;
+import com.bruno.demo.exception.CustomException;
 import com.bruno.demo.repository.ProductRepository;
 import com.bruno.demo.service.ProductService;
 
@@ -15,14 +17,19 @@ import com.bruno.demo.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
-	ProductRepository productRepository;
+	private ProductRepository productRepository;
 	
 	@Override
-	public Object findById(String id){
+	public ResponseEntity<Product> findById(String id) throws CustomException{
 		if(productRepository.findById(id).isEmpty()) {
-			return new ResponseEntity<Object>("Product not found!", HttpStatus.NOT_FOUND);
+			throw new CustomException("Product not found!", HttpStatus.NOT_FOUND);
 		}
-		return productRepository.findById(id).get();
+		return ResponseEntity.status(HttpStatus.OK).body(productRepository.findById(id).get());
+	}
+	
+	@Override
+	public List<ProductDTO.Response.Search> search(String q, Double min_price, Double max_price) throws CustomException{
+		return productRepository.search(q, min_price, max_price);
 	}
 	
 	@Override
@@ -31,14 +38,26 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Product save(Product produto){
-		return productRepository.save(produto);
+	public ResponseEntity<Product> save(Product produto){
+		return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(produto));
 	}
 	
 	@Override
-	public void update(String id, Product produto){
+	public Product update(String id, Product produto) throws CustomException{
+		if(productRepository.findById(id).isEmpty()) {
+			throw new CustomException("Product not found!", HttpStatus.NOT_FOUND);
+		}
 		produto.setId(id);
 		productRepository.save(produto);
+		return produto;
+	}
+	
+	@Override
+	public void delete(String id) throws CustomException{
+		if(productRepository.findById(id).isEmpty()) {
+			throw new CustomException("Product not found!", HttpStatus.NOT_FOUND);
+		}
+		productRepository.deleteById(id);;
 	}
 	
 }
